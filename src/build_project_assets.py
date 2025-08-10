@@ -136,15 +136,15 @@ for idx, e in enumerate(employee, start=1):
     for note in e['notes']:
         rows.append([idx, e['name'], note])
 
-notes = pd.DataFrame(rows, columns=['employee_id', 
+notes = pd.DataFrame(rows, columns=['employee_id',
                                     'employee_name', 'note']).assign(
     event_date=np.random.choice(df.event_date, size=len(rows), replace=True)
 )
 
 df = (
-    df.merge(notes[['employee_id', 'event_date', 'note']], 
+    df.merge(notes[['employee_id', 'event_date', 'note']],
              on=['employee_id', 'event_date'], how='left')
-    .merge(notes[['employee_id', 'employee_name']].drop_duplicates(), 
+    .merge(notes[['employee_id', 'employee_name']].drop_duplicates(),
            on=['employee_id'])
 )
 
@@ -176,7 +176,7 @@ events = df[
 ]
 
 team = df.drop_duplicates('team_id')[['team_id', 'team_name',
-                                       'shift', 'manager_name']]
+                            'shift', 'manager_name']]
 
 notes = (
     df.dropna()[['employee_id', 'team_id', 'note', 'event_date']]
@@ -186,7 +186,7 @@ notes = (
 model = LogisticRegression(penalty=None)
 
 X = events.groupby('employee_id')[['positive_events',
-                                    'negative_events']].sum()
+                    'negative_events']].sum()
 y = (
     X.join(
         df.drop_duplicates('employee_id')
@@ -204,7 +204,8 @@ model_path = cwd.parent / 'assets' / 'model.pkl'
 with model_path.open('wb') as file:
     pickle.dump(model, file)
 
-db_path = cwd.parent / 'python-package' / 'employee_events' / 'employee_events.db'
+db_path = (cwd.parent / 'python-package' /
+           'employee_events' / 'employee_events.db')
 
 connection = connect(db_path)
 
