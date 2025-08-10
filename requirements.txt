@@ -7,4 +7,6 @@ pandas==2.2.3
 pytest
 flake8
 ipython
-#### Add text to install the python-package here
+
+#To install the local python-package, run:
+#pip install python-package\setup.py
