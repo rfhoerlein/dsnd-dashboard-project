@@ -4,10 +4,6 @@ from query_base import QueryBase
 # Import dependencies needed for sql execution
 # from the `sql_execution` module
 from sql_execution import QueryMixin
-from sqlite3 import connect
-from pathlib import Path
-from functools import wraps
-import pandas as pd
 
 # Define a subclass of QueryBase
 # called Employee
