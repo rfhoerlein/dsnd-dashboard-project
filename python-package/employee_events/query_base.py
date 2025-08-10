@@ -9,7 +9,6 @@ class QueryBase:
     # Create a class attribute called `name`
     # set the attribute to an empty string
     name = ""
-    id_col = 'employee_id'
 
     # Define a `names` method that receives
     # no passed arguments
@@ -38,7 +37,7 @@ class QueryBase:
             SUM positive_events,
             SUM negative_events
         FROM {self.name}
-        WHERE {self.id_col} = '{id}'
+        WHERE {self.name}_id = '{id}'
         GROUP BY event_date
         ORDER BY event_date
         """
@@ -63,7 +62,7 @@ class QueryBase:
             note_date,
             note
         FROM notes
-        WHERE {self.id_col} = {id}
+        WHERE {self.name}_id = {id}
         ORDER BY note_date
         """
         query_mixin = QueryMixin()
