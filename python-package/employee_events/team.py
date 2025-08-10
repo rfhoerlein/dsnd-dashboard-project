@@ -5,20 +5,19 @@ from query_base import QueryBase
 from sql_execution import QueryMixin
 
 # Create a subclass of QueryBase
-# called  `Team`
+# called `Team`
 class Team(QueryBase):
 
     # Set the class attribute `name`
     # to the string "team"
     name = 'team'
 
-
     # Define a `names` method
     # that receives no arguments
     # This method should return
     # a list of tuples from an sql execution
     def names(self):
-        
+
         # Query 5
         # Write an SQL query that selects
         # the team_name and team_id columns
@@ -32,7 +31,6 @@ class Team(QueryBase):
         """
         query_mixin = QueryMixin()
         return query_mixin.query(query)
-    
 
     # Define a `username` method
     # that receives an ID argument
@@ -55,7 +53,6 @@ class Team(QueryBase):
         query_mixin = QueryMixin()
         return query_mixin.query(query)
 
-
     # Below is method with an SQL query
     # This SQL query generates the data needed for
     # the machine learning model.
@@ -66,17 +63,17 @@ class Team(QueryBase):
     #### YOUR CODE HERE
     def model_data(self, id):
 
-        query =  f"""
+        query = f"""
             SELECT positive_events, negative_events FROM (
-                    SELECT employee_id
-                         , SUM(positive_events) positive_events
-                         , SUM(negative_events) negative_events
-                    FROM {self.name}
-                    JOIN employee_events
-                        USING({self.name}_id)
-                    WHERE {self.name}.{self.name}_id = {id}
-                    GROUP BY employee_id
-                   )
-                """
+                SELECT employee_id,
+                    SUM(positive_events) positive_events,
+                    SUM(negative_events) negative_events
+                FROM {self.name}
+                JOIN employee_events
+                    USING({self.name}_id)
+                WHERE {self.name}.{self.name}_id = {id}
+                GROUP BY employee_id
+            )
+        """
         query_mixin = QueryMixin()
         return query_mixin.pandas_query(query)

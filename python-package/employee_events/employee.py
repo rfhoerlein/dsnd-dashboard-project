@@ -5,6 +5,7 @@ from query_base import QueryBase
 # from the `sql_execution` module
 from sql_execution import QueryMixin
 
+
 # Define a subclass of QueryBase
 # called Employee
 class Employee(QueryBase):
@@ -18,8 +19,6 @@ class Employee(QueryBase):
     # This method should return a list of tuples
     # from an sql execution
     def names(self):
-    
-        
         # Query 3
         # Write an SQL query
         # that selects two columns 
@@ -35,14 +34,12 @@ class Employee(QueryBase):
         """
         query_mixin = QueryMixin()
         return query_mixin.query(query)
-    
 
     # Define a method called `username`
     # that receives an `id` argument
     # This method should return a list of tuples
     # from an sql execution
     def username(self, id):
-        
         # Query 4
         # Write an SQL query
         # that selects an employees full name
@@ -58,7 +55,6 @@ class Employee(QueryBase):
         query_mixin = QueryMixin()
         return query_mixin.query(query)
 
-
     # Below is method with an SQL query
     # This SQL query generates the data needed for
     # the machine learning model.
@@ -68,8 +64,7 @@ class Employee(QueryBase):
     # the sql query
     #### YOUR CODE HERE
     def model_data(self, id):
-
-        query= f"""
+        query = f"""
         SELECT SUM(positive_events) positive_events
             , SUM(negative_events) negative_events
         FROM {self.name}
@@ -79,4 +74,3 @@ class Employee(QueryBase):
         """
         query_mixin = QueryMixin()
         return query_mixin.pandas_query(query)
-    

@@ -10,7 +10,6 @@ from employee_events.team import Team
 from utils import load_model
 
 
-
 """
 Below, we import the parent classes
 you will use for subclassing
@@ -50,8 +49,7 @@ class ReportDropdown(BaseComponent):
         # call the employee_events method
         # that returns the user-type's
         # names and ids
-
-        return Employee.names(entity_id, model)
+        return model.names()
 
 
 # Create a subclass of base_components/BaseComponent
@@ -79,7 +77,7 @@ class LineChart(MatplotlibViz):
         # Pass the `asset_id` argument to
         # the model's `event_counts` method to
         # receive the x (Day) and y (event count)
-        qb = QueryBase
+        qb = QueryBase()
         df = qb.event_counts(entity_id)
         
         # Use the pandas .fillna method to fill nulls with 0
@@ -94,7 +92,7 @@ class LineChart(MatplotlibViz):
         
         # Use the .cumsum method to change the data
         # in the dataframe to cumulative counts
-        df.cumsum()
+        df = df.cumsum()
         
         
         # Set the dataframe columns to the list
@@ -127,7 +125,7 @@ class LineChart(MatplotlibViz):
 
 # Create a subclass of base_components/MatplotlibViz
 # called `BarChart`
-class Barchart(MatplotlibViz):
+class BarChart(MatplotlibViz):
 
     # Create a `predictor` class attribute
     # assign the attribute to the output
@@ -187,7 +185,7 @@ class Visualizations(CombinedComponent):
     # class attribute to a list
     # containing an initialized
     # instance of `LineChart` and `BarChart`
-    children = ['LineChart', 'BarChart']
+    children = [LineChart(), BarChart()]
 
     # Leave this line unchanged
     outer_div_type = Div(cls='grid')
@@ -253,6 +251,7 @@ def root():
     # Return the result
     return report(1, Employee())
 
+
 # Create a route for a get request
 # Set the route's path to receive a request
 # for an employee ID so `/employee/2`
@@ -268,6 +267,7 @@ def get_employee(employee_id:str):
     # Return the result
     return report(employee_id, Employee())
 
+
 # Create a route for a get request
 # Set the route's path to receive a request
 # for a team ID so `/team/2`
@@ -282,6 +282,7 @@ def get_team(team_id:str):
     # of the Team SQL class as arguments
     # Return the result
     return report(team_id, Team())
+
 
 # Keep the below code unchanged!
 @app.get('/update_dropdown{r}')
