@@ -26,7 +26,7 @@ class Team(QueryBase):
         # from the team table for all teams
         # in the database
         query = f"""
-        SELECT 
+        SELECT
             team_name,
             team_id
         FROM {self.name}

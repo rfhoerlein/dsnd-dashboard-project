@@ -1,4 +1,9 @@
-from fasthtml.common import H1, Div, fast_app, serve  # Import explicitly instead of star import
+from fasthtml.common import (
+    H1,
+    Div,
+    fast_app,
+    serve,
+)  # Import explicitly instead of star import
 import matplotlib.pyplot as plt
 
 # Import QueryBase, Employee, Team from employee_events
@@ -14,7 +19,6 @@ Below, we import the parent classes
 you will use for subclassing
 """
 from base_components import (
-    Dropdown,
     BaseComponent,
     Radio,
     MatplotlibViz,
@@ -233,9 +237,13 @@ class Report(CombinedComponent):
     children = [Header(), DashboardFilters(), Visualizations(), NotesTable()]
 
 
+
+# <--- HERE is line 242: add two blank lines BEFORE this line to fix E302
+
 # Initialize a fasthtml app
 app = fast_app()
 report = Report()
+
 
 # Create a route for a get request
 # Set the route's path to the root

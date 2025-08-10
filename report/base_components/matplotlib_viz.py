@@ -30,7 +30,9 @@ def matplotlib2fasthtml(func):
         my_stringIObytes = io.BytesIO()
         plt.savefig(my_stringIObytes)
         my_stringIObytes.seek(0)
-        my_base64_jpgData = base64.b64encode(my_stringIObytes.read()).decode()
+        my_base64_jpgData = base64.b64encode(
+            my_stringIObytes.read()
+        ).decode()
 
         # Close the figure to prevent memory leaks
         plt.close(fig)

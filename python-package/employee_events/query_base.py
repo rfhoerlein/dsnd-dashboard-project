@@ -21,19 +21,13 @@ class QueryBase:
     # that receives an `id` argument
     # This method should return a pandas dataframe
     def event_counts(self, id):
-        # QUERY 1
-        # Write an SQL query that groups by `event_date`
-        # and sums the number of positive and negative events
-        # Use f-string formatting to set the FROM {table}
-        # to the `name` class attribute
-        # Use f-string formatting to set the name
-        # of id columns used for joining
-        # order by the event_date column
         query = (
             f"SELECT "
             f"event_date, "
-            f"SUM(CASE WHEN event_type = 'positive' THEN 1 ELSE 0 END) AS positive_events, "
-            f"SUM(CASE WHEN event_type = 'negative' THEN 1 ELSE 0 END) AS negative_events "
+            f"SUM(CASE WHEN event_type = 'positive' THEN 1 ELSE 0 END) "
+            f"AS positive_events, "
+            f"SUM(CASE WHEN event_type = 'negative' THEN 1 ELSE 0 END) "
+            f"AS negative_events "
             f"FROM {self.name} "
             f"WHERE {self.name}_id = '{id}' "
             f"GROUP BY event_date "

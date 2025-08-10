@@ -27,7 +27,7 @@ class Employee(QueryBase):
         # This query should return the data
         # for all employees in the database
         query = f"""
-        SELECT 
+        SELECT
             first_name || ' ' || last_name as full_name,
             employee_id
         FROM {self.name}

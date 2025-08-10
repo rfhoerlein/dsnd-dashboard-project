@@ -25,29 +25,35 @@ def left_skew(a, loc, size=500):
 profiles = {
     'good': {
         'positive': lambda: norm.rvs(loc=norm.rvs(4), scale=1).astype(int),
-        'negative': lambda: expon.rvs(loc=0, scale=np.random.choice([0.5, 1])).astype(int),
-        'chance': 0.5
+        'negative': lambda: expon.rvs(
+            loc=0, scale=np.random.choice([0.5, 1])
+        ).astype(int),
+        'chance': 0.5,
     },
     'normal': {
         'positive': lambda: norm.rvs(loc=norm.rvs(3), scale=1).astype(int),
-        'negative': lambda: norm.rvs(loc=2, scale=np.random.choice([0.5, 1, 2, 3])).astype(int),
-        'chance': 0.15
+        'negative': lambda: norm.rvs(
+            loc=2, scale=np.random.choice([0.5, 1, 2, 3])
+        ).astype(int),
+        'chance': 0.15,
     },
     'poor': {
         'positive': lambda: expon.rvs(loc=0, scale=0.5).astype(int),
         'negative': lambda: norm.rvs(loc=0.5).astype(int),
-        'chance': 0.1
+        'chance': 0.1,
     },
     'chaotic_good': {
         'positive': lambda: left_skew(-1000, 5),
-        'negative': lambda: np.random.choice([0, np.random.choice([50, 200])], p=[0.98, 0.02]),
-        'chance': 0.2
+        'negative': lambda: np.random.choice(
+            [0, np.random.choice([50, 200])], p=[0.98, 0.02]
+        ),
+        'chance': 0.2,
     },
     'chotic_bad': {
         'positive': lambda: expon.rvs(loc=0, scale=5).astype(int),
         'negative': lambda: left_skew(-1000, 10),
-        'chance': 0.2
-    }
+        'chance': 0.2,
+    },
 }
 
 
@@ -67,7 +73,7 @@ for employee_id in range(1, 26):
         employee_type=employee_type,
         event_distribution=event_distribution,
         team_id=team_id,
-        recruited=recruited
+        recruited=recruited,
     )
 
 
@@ -83,14 +89,16 @@ for day in daterange:
             employee_type = config['employee_type']
             positive = profiles[employee_type]['positive']()
             negative = profiles[employee_type]['negative']()
-            data.append([
-                employee,
-                config['team_id'],
-                day.strftime('%Y-%m-%d'),
-                positive,
-                negative,
-                config['recruited'],
-            ])
+            data.append(
+                [
+                    employee,
+                    config['team_id'],
+                    day.strftime('%Y-%m-%d'),
+                    positive,
+                    negative,
+                    config['recruited'],
+                ]
+            )
 
 
 df = pd.DataFrame(
@@ -101,8 +109,8 @@ df = pd.DataFrame(
         'event_date',
         'positive_events',
         'negative_events',
-        'recruited'
-    ]
+        'recruited',
+    ],
 )
 
 data_path = cwd / 'generated_data'
@@ -154,7 +162,15 @@ employee = (
     )[['employee_id', 'first_name', 'last_name', 'team_id']]
 )
 
-events = df[['event_date', 'employee_id', 'team_id', 'positive_events', 'negative_events']]
+events = df[
+    [
+        'event_date',
+        'employee_id',
+        'team_id',
+        'positive_events',
+        'negative_events',
+    ]
+]
 
 team = df.drop_duplicates('team_id')[['team_id', 'team_name', 'shift', 'manager_name']]
 

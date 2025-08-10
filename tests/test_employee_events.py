@@ -14,7 +14,12 @@ project_root = Path(__file__).resolve().parent.parent
 def db_path():
     # Using the `project_root` variable
     # return a pathlib object for the `employee_events.db` file
-    return project_root / 'python-package' / 'employee_events' / 'employee_events.db'
+    return (
+        project_root
+        / 'python-package'
+        / 'employee_events'
+        / 'employee_events.db'
+    )
 
 
 # Define a function called
