@@ -237,9 +237,6 @@ class Report(CombinedComponent):
     children = [Header(), DashboardFilters(), Visualizations(), NotesTable()]
 
 
-
-# <--- HERE is line 242: add two blank lines BEFORE this line to fix E302
-
 # Initialize a fasthtml app
 app = fast_app()
 report = Report()

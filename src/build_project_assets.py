@@ -136,13 +136,16 @@ for idx, e in enumerate(employee, start=1):
     for note in e['notes']:
         rows.append([idx, e['name'], note])
 
-notes = pd.DataFrame(rows, columns=['employee_id', 'employee_name', 'note']).assign(
+notes = pd.DataFrame(rows, columns=['employee_id', 
+                                    'employee_name', 'note']).assign(
     event_date=np.random.choice(df.event_date, size=len(rows), replace=True)
 )
 
 df = (
-    df.merge(notes[['employee_id', 'event_date', 'note']], on=['employee_id', 'event_date'], how='left')
-    .merge(notes[['employee_id', 'employee_name']].drop_duplicates(), on=['employee_id'])
+    df.merge(notes[['employee_id', 'event_date', 'note']], 
+             on=['employee_id', 'event_date'], how='left')
+    .merge(notes[['employee_id', 'employee_name']].drop_duplicates(), 
+           on=['employee_id'])
 )
 
 df = df.assign(shift=df.team_id.apply(lambda x: shift[x - 1]))
@@ -172,7 +175,8 @@ events = df[
     ]
 ]
 
-team = df.drop_duplicates('team_id')[['team_id', 'team_name', 'shift', 'manager_name']]
+team = df.drop_duplicates('team_id')[['team_id', 'team_name',
+                                       'shift', 'manager_name']]
 
 notes = (
     df.dropna()[['employee_id', 'team_id', 'note', 'event_date']]
@@ -181,7 +185,8 @@ notes = (
 
 model = LogisticRegression(penalty=None)
 
-X = events.groupby('employee_id')[['positive_events', 'negative_events']].sum()
+X = events.groupby('employee_id')[['positive_events',
+                                    'negative_events']].sum()
 y = (
     X.join(
         df.drop_duplicates('employee_id')
