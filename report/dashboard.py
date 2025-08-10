@@ -232,24 +232,24 @@ class Report(CombinedComponent):
     # containing initialized instances 
     # of the header, dashboard filters,
     # data visualizations, and notes table
-    #### YOUR CODE HERE
+    children = [Header(), DashboardFilters(), Visualizations(), NotesTable()]
 
 # Initialize a fasthtml app 
-#### YOUR CODE HERE
+app = fast_app()
 
 # Initialize the `Report` class
-#### YOUR CODE HERE
+report = Report()
 
 
 # Create a route for a get request
 # Set the route's path to the root
-#### YOUR CODE HERE
-
+@app.get('/')
+def root():
     # Call the initialized report
     # pass the integer 1 and an instance
     # of the Employee class as arguments
     # Return the result
-    #### YOUR CODE HERE
+    return report(1, Employee())
 
 # Create a route for a get request
 # Set the route's path to receive a request
@@ -258,13 +258,13 @@ class Report(CombinedComponent):
 # an ID of `2`. 
 # parameterize the employee ID 
 # to a string datatype
-#### YOUR CODE HERE
-
+@app.get('/employee/{employee_id}')
+def get_employee(employee_id:str):
     # Call the initialized report
     # pass the ID and an instance
     # of the Employee SQL class as arguments
     # Return the result
-    #### YOUR CODE HERE
+    return report(employee_id, Employee())
 
 # Create a route for a get request
 # Set the route's path to receive a request
@@ -273,14 +273,13 @@ class Report(CombinedComponent):
 # an ID of `2`. 
 # parameterize the team ID 
 # to a string datatype
-#### YOUR CODE HERE
-
+@app.get('/team/{team_id}')
+def get_team(team_id:str):
     # Call the initialized report
     # pass the id and an instance
     # of the Team SQL class as arguments
     # Return the result
-    #### YOUR CODE HERE
-
+    return report(team_id, Team())
 
 # Keep the below code unchanged!
 @app.get('/update_dropdown{r}')
