@@ -165,18 +165,20 @@ employee = (
     )[['employee_id', 'first_name', 'last_name', 'team_id']]
 )
 
-events = df[
-    [
-        'event_date',
-        'employee_id',
-        'team_id',
-        'positive_events',
-        'negative_events',
-    ]
-]
+events = df[[
+    'event_date',
+    'employee_id',
+    'team_id',
+    'positive_events',
+    'negative_events',
+]]
 
-team = df.drop_duplicates('team_id')[['team_id', 'team_name',
-                            'shift', 'manager_name']]
+team = df.drop_duplicates('team_id')[[
+    'team_id',
+    'team_name',
+    'shift',
+    'manager_name',
+]]
 
 notes = (
     df.dropna()[['employee_id', 'team_id', 'note', 'event_date']]
@@ -185,8 +187,11 @@ notes = (
 
 model = LogisticRegression(penalty=None)
 
-X = events.groupby('employee_id')[['positive_events',
-                    'negative_events']].sum()
+X = events.groupby('employee_id')[[
+    'positive_events',
+    'negative_events',
+]].sum()
+
 y = (
     X.join(
         df.drop_duplicates('employee_id')
@@ -199,13 +204,17 @@ model.fit(X, y)
 
 X.assign(true=y, pred=model.predict_proba(X)[:, 1])
 
-model_path = cwd.parent / 'assets' / 'model.pkl'
+model_path = (
+    cwd.parent / 'assets' / 'model.pkl'
+)
 
 with model_path.open('wb') as file:
     pickle.dump(model, file)
 
-db_path = (cwd.parent / 'python-package' /
-           'employee_events' / 'employee_events.db')
+db_path = (
+    cwd.parent / 'python-package' /
+    'employee_events' / 'employee_events.db'
+)
 
 connection = connect(db_path)
 
