@@ -34,8 +34,8 @@ class QueryBase:
         query = f"""
         SELECT 
             event_date,
-            SUM positive_events,
-            SUM negative_events
+            SUM(CASE WHEN event_type = 'positive' THEN 1 ELSE 0 END) AS positive_events,
+            SUM(CASE WHEN event_type = 'negative' THEN 1 ELSE 0 END) AS negative_events
         FROM {self.name}
         WHERE {self.name}_id = '{id}'
         GROUP BY event_date
