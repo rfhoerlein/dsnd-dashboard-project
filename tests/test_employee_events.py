@@ -1,10 +1,12 @@
 import pytest
 from pathlib import Path
 
+
 # Using pathlib create a project_root
 # variable set to the absolute path
 # for the root of this project
 project_root = Path(__file__).resolve().parent.parent
+
 
 # apply the pytest fixture decorator
 # to a `db_path` function
@@ -31,6 +33,7 @@ def test_db_exists(db_path):
 @pytest.fixture
 def db_conn(db_path):
     from sqlite3 import connect
+
     return connect(db_path)
 
 

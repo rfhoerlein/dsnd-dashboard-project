@@ -1,8 +1,10 @@
 # Import the QueryBase class
 from query_base import QueryBase
 
+
 # Import dependencies for sql execution
 from sql_execution import QueryMixin
+
 
 # Create a subclass of QueryBase
 # called `Team`
@@ -58,9 +60,8 @@ class Team(QueryBase):
     # the machine learning model.
     # Without editing the query, alter this method
     # so when it is called, a pandas dataframe
-    # is returns containing the execution of
+    # is returned containing the execution of
     # the sql query
-    #### YOUR CODE HERE
     def model_data(self, id):
 
         query = f"""

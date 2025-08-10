@@ -21,7 +21,7 @@ class Employee(QueryBase):
     def names(self):
         # Query 3
         # Write an SQL query
-        # that selects two columns 
+        # that selects two columns
         # 1. The employee's full name
         # 2. The employee's id
         # This query should return the data
@@ -42,7 +42,7 @@ class Employee(QueryBase):
     def username(self, id):
         # Query 4
         # Write an SQL query
-        # that selects an employees full name
+        # that selects an employee's full name
         # Use f-string formatting and a WHERE filter
         # to only return the full name of the employee
         # with an id equal to the id argument
@@ -60,13 +60,12 @@ class Employee(QueryBase):
     # the machine learning model.
     # Without editing the query, alter this method
     # so when it is called, a pandas dataframe
-    # is returns containing the execution of
+    # is returned containing the execution of
     # the sql query
-    #### YOUR CODE HERE
     def model_data(self, id):
         query = f"""
-        SELECT SUM(positive_events) positive_events
-            , SUM(negative_events) negative_events
+        SELECT SUM(positive_events) positive_events,
+            SUM(negative_events) negative_events
         FROM {self.name}
         JOIN employee_events
             USING({self.name}_id)
