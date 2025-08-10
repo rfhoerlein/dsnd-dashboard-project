@@ -1,9 +1,9 @@
 # Import the QueryBase class
-from query_base import QueryBase
+from .query_base import QueryBase
 
 
 # Import dependencies for sql execution
-from sql_execution import QueryMixin
+from .sql_execution import QueryMixin
 
 
 # Create a subclass of QueryBase

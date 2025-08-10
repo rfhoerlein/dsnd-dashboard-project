@@ -1,7 +1,7 @@
 from fasthtml.common import (
     H1,
     Div,
-    fast_app,
+    FastHTML,
     serve,
 )  # Import explicitly instead of star import
 import matplotlib.pyplot as plt
@@ -218,10 +218,7 @@ class DashboardFilters(FormGroup):
             hx_get='/update_dropdown',
             hx_target='#selector',
         ),
-        ReportDropdown(
-            id="selector",
-            name="user-selection",
-        ),
+        ReportDropdown(),
     ]
 
 
@@ -238,7 +235,7 @@ class Report(CombinedComponent):
 
 
 # Initialize a fasthtml app
-app = fast_app()
+app = FastHTML()
 report = Report()
 
 
