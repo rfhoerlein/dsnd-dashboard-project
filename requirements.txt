@@ -8,5 +8,7 @@ pytest
 flake8
 ipython
 
-#To install the local python-package, run:
-#pip install python-package\setup.py
+#To install the local python-package:
+#navigate to the python-packge folder
+#using shell command: cd python-package
+#then use command: pip install .
