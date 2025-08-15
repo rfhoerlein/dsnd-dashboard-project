@@ -79,3 +79,42 @@ erDiagram
   employee ||--o{ employee_events : "employee_id"
   notes }o--o{ employee_events : ""
 ```
+### Environment Setup Guide
+
+#### 1. Clone the Repository
+First, clone this repository to your local machine:
+```
+git clone https://github.com/rfhoerlein/dsnd-dashboard-project
+cd <repository-folder>
+```
+#### 2. Create Virtual Environment
+Create a virtual environment to avoid version conflicts. 
+```
+python -m venv venv
+```
+Activate the environment (Windows):
+```
+venv\Scripts\activate
+```
+
+#### 3. Install Dependencies
+Install all required Python packages:
+```
+pip install -r requirements.txt
+```
+
+#### 4. Install Local Python Package
+Install package located under python-package:
+```
+cd python-package
+pip install .
+```
+Return to project root:
+```
+cd ..
+```
+#### 5. Running Dashboard
+Run the dashboard by running the following code:
+```
+python report\dashboard.py
+```
