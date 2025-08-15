@@ -24,6 +24,7 @@ from base_components import (
     Radio,
     MatplotlibViz,
     DataTable,
+    Dropdown
 )
 
 from combined_components import FormGroup, CombinedComponent
@@ -31,7 +32,7 @@ from combined_components import FormGroup, CombinedComponent
 
 # Create a subclass of base_components/dropdown
 # called `ReportDropdown`
-class ReportDropdown(BaseComponent):
+class ReportDropdown(Dropdown):
 
     # Overwrite the build_component method
     # ensuring it has the same parameters
@@ -42,17 +43,7 @@ class ReportDropdown(BaseComponent):
         self.label = model.name
         # Return the output from the
         # parent class's build_component method
-        # I did not follow this instruction as
-        # This directs me to a not implmented error
-        options = self.component_data(entity_id, model)
-        return Select(
-            *[
-                {"value": uid, "text": name}
-                for name, uid in options
-            ],
-            name="user-selection",
-            id="selector",
-        )
+        return super().build_component(entity_id, model)
 
     # Overwrite the `component_data` method
     # Ensure the method uses the same parameters
