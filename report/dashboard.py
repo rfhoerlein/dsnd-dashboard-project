@@ -46,9 +46,12 @@ class ReportDropdown(BaseComponent):
         # This directs me to a not implmented error
         options = self.component_data(entity_id, model)
         return Select(
-            *[{"value": id, 'text': name} for name,
-            id in options], name='user-selection',
-            id='selector'
+            *[
+                {"value": uid, "text": name}
+                for name, uid in options
+            ],
+            name="user-selection",
+            id="selector",
         )
 
     # Overwrite the `component_data` method
