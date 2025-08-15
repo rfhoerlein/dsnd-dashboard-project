@@ -24,12 +24,10 @@ class QueryBase:
         query = (
             f"SELECT "
             f"event_date, "
-            f"SUM(CASE WHEN event_type = 'positive' THEN 1 ELSE 0 END) "
-            f"AS positive_events, "
-            f"SUM(CASE WHEN event_type = 'negative' THEN 1 ELSE 0 END) "
-            f"AS negative_events "
+            f"SUM(positive_events),"
+            f"SUM(negative_events) "
             f"FROM {self.name} "
-            f"WHERE {self.name}_id = '{id}' "
+            f"WHERE employee_id = '{id}' "
             f"GROUP BY event_date "
             f"ORDER BY event_date"
         )

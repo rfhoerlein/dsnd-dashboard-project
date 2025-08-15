@@ -3,6 +3,7 @@ from fasthtml.common import (
     Div,
     FastHTML,
     serve,
+    Select
 )  # Import explicitly instead of star import
 import matplotlib.pyplot as plt
 
@@ -41,7 +42,14 @@ class ReportDropdown(BaseComponent):
         self.label = model.name
         # Return the output from the
         # parent class's build_component method
-        return super().build_component(entity_id, model)
+        # I did not follow this instruction as
+        # This directs me to a not implmented error
+        options = self.component_data(entity_id, model)
+        return Select(
+            *[{"value": id, 'text': name} for name,
+              id in options], name = 'user-selection',
+              id = 'selector'
+        )
 
     # Overwrite the `component_data` method
     # Ensure the method uses the same parameters
@@ -79,6 +87,7 @@ class LineChart(MatplotlibViz):
         # the model's `event_counts` method to
         # receive the x (Day) and y (event count)
         qb = QueryBase()
+        qb.name = 'employee_events'
         df = qb.event_counts(entity_id)
 
         # Use the pandas .fillna method to fill nulls with 0
@@ -156,12 +165,12 @@ class BarChart(MatplotlibViz):
         # If the model's name attribute is "team"
         # We want to visualize the mean of the predict_proba output
         if model.name == "team":
-            pred = predictions.mean()
+            pred = float(predictions.mean())
 
         # Otherwise set `pred` to the first value
         # of the predict_proba output
         else:
-            pred = predictions[0]
+            pred = float(predictions[0].item())
 
         # Initialize a matplotlib subplot
         fig, ax = plt.subplots()
@@ -169,12 +178,12 @@ class BarChart(MatplotlibViz):
         # Run the following code unchanged
         ax.barh([''], [pred])
         ax.set_xlim(0, 1)
-        ax.set_title('Predicted Recruitment Risk', fontsize=20)
+        ax.set_title('Predicted Recruitment Risk')
 
         # pass the axis variable
         # to the `.set_axis_styling`
         # method
-        self.set_axis_styling(ax)
+        self.set_axis_styling(ax, bordercolor='black', fontcolor='black')
 
 
 # Create a subclass of combined_components/CombinedComponent
