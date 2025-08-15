@@ -3,7 +3,6 @@ from fasthtml.common import (
     Div,
     FastHTML,
     serve,
-    Select
 )  # Import explicitly instead of star import
 import matplotlib.pyplot as plt
 
