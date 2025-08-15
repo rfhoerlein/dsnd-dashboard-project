@@ -47,8 +47,8 @@ class ReportDropdown(BaseComponent):
         options = self.component_data(entity_id, model)
         return Select(
             *[{"value": id, 'text': name} for name,
-              id in options], name = 'user-selection',
-              id = 'selector'
+            id in options], name='user-selection',
+            id='selector'
         )
 
     # Overwrite the `component_data` method
